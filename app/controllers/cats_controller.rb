@@ -18,7 +18,7 @@ class CatsController < ApplicationController
     def create
         @cat = Cat.new(cat_params)
 
-        if @book.save
+        if @cat.save
             redirect_to cat_url(@cat) 
         else
             render :new

@@ -6,15 +6,12 @@
         -submit button
  -->
 
- <% if action == :edit %>
-    <% action_url = cat_url(cat)%>
-<% else %>
-    <% action_url = cats_url %>
-<% end %>    
+ <% action = (cat.persisted? ? cat_url(cat) : cats_url) %>
+ <% method = (cat.persisted? ? :patch : :post) %>  
     
-<form action="<%= action_url %>" method="post">
+<form action="<%= action %>" method="post">
     <% if action == :edit %>
-        <input type="hidden" name="_method" value="PATCH">
+        <input type="hidden" name="_method" value="<%= method %>">
     <% end %>  
 <br>
 
@@ -24,7 +21,7 @@
         type="text" 
         name="cat[name]" 
         id="cat_name"
-        value="<%= cat.name %>">
+        value="<%= @cat.name %>">
     <br>
 
      <label for="cat_birth_date">Paw Out Birthdate:</label>
@@ -32,7 +29,7 @@
             type="date" 
             name="cat[birth_date]" 
             id="cat_birth_date"
-            value="<%= cat.birth_date %>">
+            value="<%= @cat.birth_date %>">
     <br>
 
     <label for="cat_color">Paw Out Color!</label>
@@ -40,7 +37,7 @@
             <option disabled selected>^_^Choose Color^_^</option>
             <% Cat::CAT_COLORS.each do |color| %>
             <option 
-                <%= cat.color == color ? "selected" : "" %>
+                <%= @cat.color == color ? "selected" : "" %>
                 value="<%= color %>">
                 <% color.upcase %>
             </option>
@@ -55,22 +52,21 @@
         name="cat[sex]"
         value="M"
         id="cat_sex_male"
-        <%= cat.sex == "M" ? "checked" : "" %>>
+        <%= @cat.sex == "M" ? "checked" : "" %>>
     <label for="cat_sex_male">Male</label>
     <input 
         type="radio" 
         name="cat[sex]"
         value="F"
         id="cat_sex_female"
-        <%= cat.sex == "F" ? "checked" : "" %>>
+        <%= @cat.sex == "F" ? "checked" : "" %>>
       <label for="cat_sex_female">Female</label>
     <br>
 
 
-    <label>
-        Description:
-        <textarea name="cat[description]"><%= cat.description %></textarea>
+    <label>Description:
+        <textarea name="cat[description]"><%= @cat.description %></textarea>
     </label>
 
-    <input type="submit" value="<%= (action == :edit) ? 'update cat' : 'add book'%>">
+    <input type="submit" value="<%= action == :edit ? 'update cat' : 'add cat'%>">
 </form>
