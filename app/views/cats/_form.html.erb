@@ -33,15 +33,12 @@
     <br>
 
     <label for="cat_color">Paw Out Color!</label>
-        <select name="cat[color]" id="cat_color"> 
-            <option disabled selected>^_^Choose Color^_^</option>
-            <% Cat::CAT_COLORS.each do |color| %>
-            <option 
-                <%= @cat.color == color ? "selected" : "" %>
-                value="<%= color %>">
-                <% color.upcase %>
-            </option>
-            <% end %>
+        <select name="cat[color]" id="cat_color">
+        <option disabled>^_^ChooseColor^_^</option>
+            <option value="snowy" <%= @cat.color == "snowy" ? "selected" : "" %>>Snowy</option> 
+            <option value="coal" <%= @cat.color == "coal" ? "selected" : "" %>>Coal</option>
+            <option value="silver" <%= @cat.color == "silver" ? "selected" : "" %>>Silver</option>
+            <option value="maroon" <%= @cat.color == "maroon" ? "selected" : "" %>>Maroon</option>
         </select>
     <br>
 
